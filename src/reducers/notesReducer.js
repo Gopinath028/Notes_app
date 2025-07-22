@@ -79,21 +79,18 @@ export const notesReducer = (state, { type, payload }) => {
             };
 
         case 'TOGGLE_IMPORTANT':
-            
-                const note = state.notes.find(note => note.id === payload.id);
-                if (!note) return state; 
-
-                return {
-                    ...state,
-                    important: [...state.important, { ...note, isImportant: true }]
-                };
+             return{
+                 ...state,
+                important: [...state.important, state.notes.find(({ id }) => id === payload.id)],
+                notes: state.notes.filter(({ id }) => id !== payload.id),
+             }
             
 
         case 'REMOVE_FROM_IMPORTANT':
                return{
                 ...state,
-                notes: state.notes.filter(({ id }) => id !== payload.id),
-                important: [...state.important, state.notes.find(({ id }) => id === payload.id)],
+                notes: [...state.notes, state.important.find(note => note.id === payload.id)],
+                important: state.important.filter(({ id }) => id !== payload.id)
                 
                }
 

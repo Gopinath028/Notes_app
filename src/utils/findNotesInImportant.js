@@ -1,3 +1,4 @@
 export const findNotesInImportant = (important, id) =>  {
-    return important.find(note => note.id === id);
+    return important.some(note => note.id === id);
 };
+

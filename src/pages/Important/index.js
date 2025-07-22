@@ -14,18 +14,11 @@ export const Important = () => {
                 <SideBar />
                 <div >
                     <div className="flex flex-wrap gap-6 w-screen mt-7">
-                        {important?.length > 0 &&
-                            important
-                                .filter(note => note) 
-                                .map(({ id, title, text, isPinned }) => (
-                                    <NotesCard
-                                        key={id}
-                                        id={id}
-                                        title={title}
-                                        text={text}
-                                        isPinned={isPinned}
-                                    />
-                                ))}
+                        {
+                            important?.length > 0 && important.map(({ id, title, text, isPinned }) => (
+                                <NotesCard key={id} id={id} title={title} text={text} isPinned={isPinned} />
+                            ))
+                        }
 
 
                     </div>

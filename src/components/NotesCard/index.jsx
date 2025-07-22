@@ -40,10 +40,17 @@ export const NotesCard = ({ id, title, text, isPinned }) => {
 
     const onClickImportant = () => {
         notesDispatch({
-            type: isNotesInImportant ? 'TOGGLE_IMPORTANT' : 'REMOVE_FROM_IMPORTANT',
+            type: 'TOGGLE_IMPORTANT',
             payload: { id }
         });
     };
+
+    const onClickRemove = () => {
+        notesDispatch({
+            type: 'REMOVE_FROM_IMPORTANT',
+            payload: { id }
+        })
+    }
 
     return (
         <div className="w-56 border border-neutral-800 p-2 rounded-sm shadow-md w-[300px]" key={id}>
@@ -68,11 +75,22 @@ export const NotesCard = ({ id, title, text, isPinned }) => {
 
 
                     <div>
-                        <button onClick={onClickImportant}>
-                            <span className='material-icons'>
-                                {isNotesInImportant ? 'label_important' : 'label_important_outline'}
-                            </span>
-                        </button>
+                        {!isNotesInBin && isNotesInImportant ? (
+
+                            <button onClick={onClickRemove}>
+                                <span className="material-icons">
+                                    label_important
+                                </span>
+                            </button>) : !isNotesInBin ?
+
+                            (<button onClick={onClickImportant}>
+                                <span className="material-icons">
+                                    label_important_outline
+                                </span>
+                            </button>
+
+                            ) : null
+                        }
                     </div>
 
 
@@ -88,17 +106,19 @@ export const NotesCard = ({ id, title, text, isPinned }) => {
                             )
                         }
 
-                        {
-                            !isNotesInImportant && isNotesInBin ? (
-                                <button onClick={onRestoreClick}>
-                                    <span className="material-icons-outlined">restore_from_trash</span>
-                                </button>
-                            ) : (
-                                <button onClick={onDeleteClick}>
-                                    <span className="material-icons-outlined">delete</span>
-                                </button>
-                            )
-                        }
+                        <div>
+                            {
+                                !isNotesInImportant && isNotesInBin ? (
+                                    <button onClick={onRestoreClick}>
+                                        <span className="material-icons-outlined">restore_from_trash</span>
+                                    </button>
+                                ) : !isNotesInImportant ? (
+                                    <button onClick={onDeleteClick}>
+                                        <span className="material-icons-outlined">delete</span>
+                                    </button>
+                                ) : null
+                            }
+                        </div>
                     </div>
                 </div>
             </div>

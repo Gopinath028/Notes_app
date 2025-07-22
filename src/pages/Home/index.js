@@ -6,7 +6,7 @@ import { useNotes } from "../../context/notes-context";
 
 export const Home = () => {
 
-    const { title, text, notes, archive,important,  notesDispatch } = useNotes();
+    const { title, text, notes, archive, notesDispatch } = useNotes();
 
     const onTitleChange = (e) => {
         notesDispatch({
@@ -36,8 +36,8 @@ export const Home = () => {
     console.log(pinnedNotes)
     console.log(otherNotes)
     console.log(archive)
-    
-    
+
+
 
     return (
         <Fragment>
